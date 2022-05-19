@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"os"
 	"bufio"
+	"fmt"
+	"os"
 )
 
 func ReadCSV(filePath string, delimiter string) ([]string, error) {
@@ -15,6 +16,7 @@ func ReadCSV(filePath string, delimiter string) ([]string, error) {
 	var lines []string
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
+		fmt.Println(scanner.Text())
 		lines = append(lines, scanner.Text())
 	}
 	if err := scanner.Err(); err != nil {
