@@ -28,8 +28,9 @@ func main() {
 
 	defer store.Client.Disconnect(context.TODO())
 
-	err = u.SendEmail()
-	
+	data := u.CalculateData(processedData)
+	err = u.SendEmail(data)
+
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
