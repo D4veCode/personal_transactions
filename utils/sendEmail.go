@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"net/smtp"
 )
 
@@ -21,5 +22,6 @@ func SendEmail(data CalculatedData) error {
 		return err
 	}
 
+	fmt.Println("Email sent!")
 	return nil
 }
