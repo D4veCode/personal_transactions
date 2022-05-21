@@ -12,6 +12,14 @@ type sendEmailRequest struct {
 	Email string `json:"email" binding:"required,email"`
 }
 
+
+// @description Adds transactions to the database from a csv file
+// @version 1.0
+// @accept multipart/form-data
+// @Param transactions formData file true "transactions"
+// @Param account_id formData string true "account_id"
+// @Success 200 {object} gin.H {"message": "Transactions successfully uploaded and saved."}
+// @router /upload-transactions/ [post]
 func AddTransactions() gin.HandlerFunc {
 
 	return func(c *gin.Context) {
@@ -62,6 +70,12 @@ func AddTransactions() gin.HandlerFunc {
 
 }
 
+// @description Sends an email from an account
+// @version 1.0
+// @accept application/json
+// @Param email query string true "Email"
+// @Success 200 {object} gin.H {"message": "Email sent"}
+// @router /send-email/ [post]
 func SendTransactionsEmail () gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var requestBody sendEmailRequest
@@ -86,6 +100,10 @@ func SendTransactionsEmail () gin.HandlerFunc {
 		calculatedData := utils.CalculateData(transactions)
 
 		utils.SendEmail(calculatedData, data.Email)
-		
+
+		c.JSON(200, gin.H{
+			"message": "Email sent",
+		})
+		return
 	}
 }
