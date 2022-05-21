@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -21,8 +22,12 @@ func ConnectDB() *Store {
 	}
 	database := client.Database("personal_transactions")
 
+	fmt.Println("Database connected")
+
 	return &Store{
 		Db: database,
 		Client: client,
 	}
 }
+
+var DBStore *Store = ConnectDB()
