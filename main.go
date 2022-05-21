@@ -1,15 +1,29 @@
 package main
 
 import (
-	"fmt"
-	"context"
+	//"context"
+	//"fmt"
+
 	db "github.com/D4vecode/personal_transactions/database"
-	"github.com/D4vecode/personal_transactions/repository"
-	u "github.com/D4vecode/personal_transactions/utils"
+	"github.com/D4vecode/personal_transactions/routes"
+
+	//"github.com/D4vecode/personal_transactions/repository"
+	//u "github.com/D4vecode/personal_transactions/utils"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	transactions, err := u.ReadCSV("./data/transactions.csv", ",")
+
+	router := gin.Default()
+
+	db.ConnectDB()
+
+	routes.AccountsRoutes(router)
+	routes.TransactionRoutes(router)
+
+	router.Run(":8080")
+	
+	/*transactions, err := u.ReadCSV("./data/transactions.csv", ",")
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
@@ -34,6 +48,6 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
-	}
+	}*/
 
 }
