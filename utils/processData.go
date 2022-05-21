@@ -2,11 +2,13 @@ package utils
 
 import (
 	"fmt"
-	"github.com/D4vecode/personal_transactions/models"
 	"math"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/D4vecode/personal_transactions/models"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func getTransactionType(transactionType string) (string, float64) {
@@ -33,7 +35,7 @@ func parseDate(date string) (time.Time, error) {
 	return parsedDate, nil
 }
 
-func ProcessData(transactionsArray [][]string) []*models.Transaction {
+func ProcessData(transactionsArray [][]string, accountID primitive.ObjectID) []*models.Transaction {
 	transactionsArray = transactionsArray[1:]
 	transactions := []*models.Transaction{}
 
@@ -52,6 +54,7 @@ func ProcessData(transactionsArray [][]string) []*models.Transaction {
 			Date:      date,
 			Type:      transactionType,
 			Amount:    amount,
+			AccountID: accountID,
 		}
 		transactions = append(transactions, processedTransaction)
 

@@ -2,15 +2,10 @@ package utils
 
 import (
 	"encoding/csv"
-	"os"
+	"mime/multipart"
 )
 
-func ReadCSV(filePath string, delimiter string) ([][]string, error) {
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
+func ReadCSV(file multipart.File, delimiter string) ([][]string, error) {
 
 	reader := csv.NewReader(file)
 	transcations, err := reader.ReadAll()
