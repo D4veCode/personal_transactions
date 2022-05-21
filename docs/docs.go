@@ -27,7 +27,7 @@ const docTemplate = `{
             "post": {
                 "description": "creates an account based in email and full name",
                 "consumes": [
-                    "multipart/form-data"
+                    "application/json"
                 ],
                 "parameters": [
                     {
