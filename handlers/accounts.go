@@ -18,20 +18,21 @@ func CreateAccount() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		var account models.Account
-
+		
 		if err := c.ShouldBindJSON(&account); err != nil {
 			c.JSON(400, gin.H{
 				"message": "Invalid fields, please check again",
 			})
 			return
 		}
-
+		
 		newAccount := models.Account{
 			ID: primitive.NewObjectID(),
 			Name: account.Name,
 			Email: account.Email,
 		}
-
+		
+		//! TODO: Check if EMAIL already exists
 		err := repository.CreateAccount(newAccount)
 
 		if err != nil {

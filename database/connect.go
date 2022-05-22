@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/D4vecode/personal_transactions/config"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -14,8 +15,21 @@ type Store struct {
 	Client *mongo.Client
 }
 
+
 func ConnectDB() *Store {
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://localhost:27017"))
+
+	DB_URI, err := config.GetEnv("DB_URI")
+
+	if err != nil {
+		log.Fatal(err)
+		return nil
+	}
+
+
+	serverAPIOptions := options.ServerAPI(options.ServerAPIVersion1)
+
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(DB_URI).SetServerAPIOptions(serverAPIOptions))
+	
 	if err != nil {
 		log.Fatal("Error connecting to database", err)
 		return nil

@@ -2,11 +2,11 @@ package main
 
 import (
 	db "github.com/D4vecode/personal_transactions/database"
+	_ "github.com/D4vecode/personal_transactions/docs"
 	"github.com/D4vecode/personal_transactions/routes"
 	"github.com/gin-gonic/gin"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	swaggerFiles "github.com/swaggo/files"
-	_ "github.com/D4vecode/personal_transactions/docs"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // @title Personal Transactions API
