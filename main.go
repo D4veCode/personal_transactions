@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/D4vecode/personal_transactions/config"
 	db "github.com/D4vecode/personal_transactions/database"
 	_ "github.com/D4vecode/personal_transactions/docs"
 	"github.com/D4vecode/personal_transactions/routes"
@@ -22,12 +23,13 @@ import (
 // @BasePath /
 func main() {
 
-	
 	router := gin.Default()
 
 	db.ConnectDB()
 
-	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
+	swaggerHost, _ := config.GetEnv("SWAGGER_URL") 
+
+	url := ginSwagger.URL(swaggerHost + "/swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	routes.AccountsRoutes(router)
 	routes.TransactionRoutes(router)
